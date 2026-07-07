@@ -19,14 +19,12 @@ import java.util.List;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleVO;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Class Name : EgovSampleServiceImpl.java
@@ -38,6 +36,7 @@ import lombok.RequiredArgsConstructor;
  * @ 2009.03.16           최초생성
  * @ 2026.06.19           [2026년 컨트리뷰션] 문자열 기반 설정 제거
  * @ 2026.06.25           [2026년 컨트리뷰션] 생성자 주입으로 변경
+ * @ 2026.07.04   정찬영    [2026년 컨트리뷰션] 미사용 import 제거 및 @Slf4j로 로거 선언 통일
  *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
@@ -49,9 +48,8 @@ import lombok.RequiredArgsConstructor;
 
 @Service("sampleService")
 @RequiredArgsConstructor
+@Slf4j
 public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements EgovSampleService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
 
 	private final SampleMapper sampleMapper;
 
@@ -65,12 +63,12 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public void insertSample(SampleVO vo) throws Exception {
-		LOGGER.debug(vo.toString());
+		log.debug(vo.toString());
 
 		/** ID Generation Service */
 		String id = egovIdGnrService.getNextStringId();
 		vo.setId(id);
-		LOGGER.debug(vo.toString());
+		log.debug(vo.toString());
 
 		sampleMapper.insertSample(vo);
 	}
