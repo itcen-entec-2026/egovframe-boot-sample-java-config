@@ -33,10 +33,11 @@ import lombok.extern.slf4j.Slf4j;
  * @
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
- * @ 2026.06.19           [2026년 컨트리뷰션] 문자열 기반 설정 제거
- * @ 2026.06.25           [2026년 컨트리뷰션] 생성자 주입으로 변경
- * @ 2026.07.04   정찬영    [2026년 컨트리뷰션] 미사용 import 제거 및 @Slf4j로 로거 선언 통일
+ * @ 2009.03.16                최초생성
+ * @ 2026.06.19                [2026년 컨트리뷰션] 문자열 기반 설정 제거
+ * @ 2026.06.25                [2026년 컨트리뷰션] 생성자 주입으로 변경
+ * @ 2026.07.04  정찬영          [2026년 컨트리뷰션] 미사용 import 제거 및 @Slf4j로 로거 선언 통일
+ *   2026.07.14  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
@@ -77,10 +78,9 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글을 수정한다.
 	 * @param vo - 수정할 정보가 담긴 SampleVO
 	 * @return void형
-	 * @exception Exception
 	 */
 	@Override
-	public void updateSample(SampleVO vo) throws Exception {
+	public void updateSample(SampleVO vo) {
 		sampleMapper.updateSample(vo);
 	}
 
@@ -88,10 +88,9 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글을 삭제한다.
 	 * @param vo - 삭제할 정보가 담긴 SampleVO
 	 * @return void형
-	 * @exception Exception
 	 */
 	@Override
-	public void deleteSample(SampleVO vo) throws Exception {
+	public void deleteSample(SampleVO vo) {
 		sampleMapper.deleteSample(vo);
 	}
 
@@ -113,10 +112,9 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글 목록을 조회한다.
 	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 목록
-	 * @exception Exception
 	 */
 	@Override
-	public List<?> selectSampleList(SampleVO vo) throws Exception {
+	public List<?> selectSampleList(SampleVO vo) {
 		return sampleMapper.selectSampleList(vo);
 	}
 
@@ -124,7 +122,6 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글 총 갯수를 조회한다.
 	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 총 갯수
-	 * @exception
 	 */
 	@Override
 	public int selectSampleListTotCnt(SampleVO vo) {
