@@ -16,6 +16,7 @@
 package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
@@ -55,7 +56,7 @@ class EgovSampleControllerTestUpdateTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given - 등록
 		final SampleVO insertVO = new SampleVO();
 		final String now = LocalDateTime.now().toString();
@@ -63,7 +64,7 @@ class EgovSampleControllerTestUpdateTest {
 		insertVO.setDescription("test 수정전 설명 " + now);
 		insertVO.setUseYn("Y");
 		insertVO.setRegUser("eGov");
-		egovSampleService.insertSample(insertVO);
+		assertDoesNotThrow(() -> egovSampleService.insertSample(insertVO));
 
 		insertVO.setRecordCountPerPage(10);
 		insertVO.setFirstIndex(0);
@@ -77,7 +78,7 @@ class EgovSampleControllerTestUpdateTest {
 		final String updatedDescription = "test 수정후 설명 " + now;
 
 		// when
-		mockMvc.perform(
+		assertDoesNotThrow(() -> mockMvc.perform(
 				post("/updateSample.do")
 						.param("id", insertedId)
 						.param("name", updatedName)
@@ -87,12 +88,12 @@ class EgovSampleControllerTestUpdateTest {
 		)
 				.andDo(print())
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrlPattern("/egovSampleList.do*"));
+				.andExpect(redirectedUrlPattern("/egovSampleList.do*")));
 
 		// then
 		final SampleVO queryVO = new SampleVO();
 		queryVO.setId(insertedId);
-		final SampleVO result = egovSampleService.selectSample(queryVO);
+		final SampleVO result = assertDoesNotThrow(() -> egovSampleService.selectSample(queryVO));
 
 		if (log.isDebugEnabled()) {
 			log.debug("insertedId={}", insertedId);

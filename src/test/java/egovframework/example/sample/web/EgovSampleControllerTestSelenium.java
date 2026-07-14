@@ -53,7 +53,8 @@ class EgovSampleControllerTestSelenium {
 
 		sleep();
 		WebElement regUser = driver.findElement(By.id("regUser"));
-		regUser.sendKeys("test 이백행 등록자 " + now);
+//		regUser.sendKeys("test 이백행 등록자 " + now);
+		regUser.sendKeys("test 이백행");
 
 		sleep();
 		javascriptExecutor.executeScript("sampleAdd();");

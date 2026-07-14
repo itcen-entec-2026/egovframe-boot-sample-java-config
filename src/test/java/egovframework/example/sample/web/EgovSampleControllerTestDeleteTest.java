@@ -16,6 +16,7 @@
 package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
@@ -55,7 +56,7 @@ class EgovSampleControllerTestDeleteTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given - 등록
 		final SampleVO insertVO = new SampleVO();
 		final String now = LocalDateTime.now().toString();
@@ -63,7 +64,7 @@ class EgovSampleControllerTestDeleteTest {
 		insertVO.setDescription("test 삭제대상 설명 " + now);
 		insertVO.setUseYn("Y");
 		insertVO.setRegUser("eGov");
-		egovSampleService.insertSample(insertVO);
+		assertDoesNotThrow(() -> egovSampleService.insertSample(insertVO));
 
 		insertVO.setRecordCountPerPage(10);
 		insertVO.setFirstIndex(0);
@@ -74,13 +75,13 @@ class EgovSampleControllerTestDeleteTest {
 		final String insertedId = (String) insertedRow.get("id");
 
 		// when
-		mockMvc.perform(
+		assertDoesNotThrow(() -> mockMvc.perform(
 				post("/deleteSample.do")
 						.param("id", insertedId)
 		)
 				.andDo(print())
 				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrlPattern("/egovSampleList.do*"));
+				.andExpect(redirectedUrlPattern("/egovSampleList.do*")));
 
 		// then - 삭제 후 조회 시 예외 발생
 		if (log.isDebugEnabled()) {

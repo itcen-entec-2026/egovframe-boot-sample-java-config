@@ -16,6 +16,7 @@
 package egovframework.example.sample.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -98,7 +99,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 단건 조회 - 존재하는 글을 정상적으로 반환한다")
-	void selectSample_정상() throws Exception {
+	void selectSample_정상() {
 		// given
 		SampleVO expected = new SampleVO();
 		expected.setId("SAMPLE-001");
@@ -106,7 +107,7 @@ class EgovSampleServiceImplTest {
 		when(sampleMapper.selectSample(sampleVO)).thenReturn(expected);
 
 		// when
-		SampleVO result = sut.selectSample(sampleVO);
+		SampleVO result = assertDoesNotThrow(() -> sut.selectSample(sampleVO));
 
 		// then
 		assertNotNull(result);

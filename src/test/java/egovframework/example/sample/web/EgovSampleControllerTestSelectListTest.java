@@ -15,6 +15,7 @@
  */
 package egovframework.example.sample.web;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -46,18 +47,18 @@ class EgovSampleControllerTestSelectListTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void test_목록조회_기본() throws Exception {
-		mockMvc.perform(get("/egovSampleList.do"))
+	void test_목록조회_기본() {
+		assertDoesNotThrow(() -> mockMvc.perform(get("/egovSampleList.do"))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(view().name("sample/egovSampleList"))
 				.andExpect(model().attributeExists("resultList"))
-				.andExpect(model().attributeExists("paginationInfo"));
+				.andExpect(model().attributeExists("paginationInfo")));
 	}
 
 	@Test
-	void test_목록조회_검색조건_이름() throws Exception {
-		mockMvc.perform(
+	void test_목록조회_검색조건_이름() {
+		assertDoesNotThrow(() -> mockMvc.perform(
 				get("/egovSampleList.do")
 						.param("searchCondition", "1")
 						.param("searchKeyword", "테스트")
@@ -67,15 +68,15 @@ class EgovSampleControllerTestSelectListTest {
 				.andExpect(status().isOk())
 				.andExpect(view().name("sample/egovSampleList"))
 				.andExpect(model().attributeExists("resultList"))
-				.andExpect(model().attributeExists("paginationInfo"));
+				.andExpect(model().attributeExists("paginationInfo")));
 	}
 
 	@Test
-	void test_인덱스_리다이렉트() throws Exception {
-		mockMvc.perform(get("/"))
+	void test_인덱스_리다이렉트() {
+		assertDoesNotThrow(() -> mockMvc.perform(get("/"))
 				.andDo(print())
 				.andExpect(status().isOk())
-				.andExpect(view().name("sample/egovSampleList"));
+				.andExpect(view().name("sample/egovSampleList")));
 	}
 
 }

@@ -1,6 +1,7 @@
 package egovframework.example.sample.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
@@ -34,10 +35,10 @@ class SampleMapperTestSelectSampleListTest {
 	private EgovIdGnrService egovIdGnrService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
-		sampleVO.setId(egovIdGnrService.getNextStringId());
+		sampleVO.setId(assertDoesNotThrow(() -> egovIdGnrService.getNextStringId()));
 
 		final String now = LocalDateTime.now().toString();
 

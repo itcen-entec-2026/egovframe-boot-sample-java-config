@@ -1,6 +1,7 @@
 package egovframework.example.sample.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.time.LocalDateTime;
 
@@ -34,7 +35,7 @@ class EgovSampleServiceImplTestInsertSampleTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 
@@ -54,10 +55,10 @@ class EgovSampleServiceImplTestInsertSampleTest {
 		sampleVO.setRegUser("eGov");
 
 		// when
-		egovSampleService.insertSample(sampleVO);
+		assertDoesNotThrow(() -> egovSampleService.insertSample(sampleVO));
 
 		// then
-		final SampleVO resultSampleVO = egovSampleService.selectSample(sampleVO);
+		final SampleVO resultSampleVO = assertDoesNotThrow(() -> egovSampleService.selectSample(sampleVO));
 
 		if (log.isDebugEnabled()) {
 			log.debug("sampleVO={}", sampleVO);

@@ -1,6 +1,7 @@
 package egovframework.example.sample.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.time.LocalDateTime;
 
@@ -40,10 +41,10 @@ class SampleMapperTestInsertSampleTest {
 	private EgovIdGnrService egovIdGnrService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
-		sampleVO.setId(egovIdGnrService.getNextStringId());
+		sampleVO.setId(assertDoesNotThrow(() -> egovIdGnrService.getNextStringId()));
 
 		final String now = LocalDateTime.now().toString();
 //		final String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSSSS"));

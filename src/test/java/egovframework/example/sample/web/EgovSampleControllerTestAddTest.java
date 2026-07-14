@@ -1,6 +1,7 @@
 package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -44,7 +45,7 @@ class EgovSampleControllerTestAddTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 
@@ -64,9 +65,9 @@ class EgovSampleControllerTestAddTest {
 		sampleVO.setRegUser("eGov");
 
 		// when
-		mockMvc.perform(
+		assertDoesNotThrow(() -> mockMvc.perform(
 
-				post("/sample/add")
+				post("/addSample.do")
 
 						.param("name", sampleVO.getName())
 
@@ -76,7 +77,7 @@ class EgovSampleControllerTestAddTest {
 
 						.param("regUser", sampleVO.getRegUser())
 
-		).andDo(print());
+		).andDo(print()));
 
 		// then
 		sampleVO.setRecordCountPerPage(10);
