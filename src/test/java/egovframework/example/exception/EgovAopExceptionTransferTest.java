@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import lombok.SneakyThrows;
+
 /**
  * EgovAopExceptionTransfer 단위 테스트
  *
@@ -31,7 +33,8 @@ class EgovAopExceptionTransferTest {
 
 	@Test
 	@DisplayName("doAfterThrowingExceptionTransferService - ExceptionTransfer.transfer 위임 확인")
-	void testDoAfterThrowingDelegatesToExceptionTransfer() throws Exception {
+	@SneakyThrows
+	void testDoAfterThrowingDelegatesToExceptionTransfer() {
 		JoinPoint joinPoint = mock(JoinPoint.class);
 		Exception ex = new RuntimeException("서비스 예외");
 
@@ -42,7 +45,8 @@ class EgovAopExceptionTransferTest {
 
 	@Test
 	@DisplayName("setExceptionTransfer - 의존성 주입 후 transfer 호출 가능")
-	void testSetExceptionTransfer() throws Exception {
+	@SneakyThrows
+	void testSetExceptionTransfer() {
 		ExceptionTransfer another = mock(ExceptionTransfer.class);
 		exceptionTransfer.setExceptionTransfer(another);
 

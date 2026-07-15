@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import egovframework.example.sample.service.SampleVO;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -40,7 +41,8 @@ class SampleMapperTestInsertSampleTest {
 	private EgovIdGnrService egovIdGnrService;
 
 	@Test
-	void test() throws Exception {
+	@SneakyThrows
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 		sampleVO.setId(egovIdGnrService.getNextStringId());
