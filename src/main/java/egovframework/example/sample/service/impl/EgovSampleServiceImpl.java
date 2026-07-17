@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2009 the original author or authors.
+ * Copyright (c) 2009-2026 MOIS (MINISTRY OF THE INTERIOR AND SAFETY).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,10 +42,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2009. 03.16
  * @version 1.0
  * @see
- *
- *  Copyright (C) by MOPAS All right reserved.
  */
-
 @Service("sampleService")
 @RequiredArgsConstructor
 @Slf4j
