@@ -2,8 +2,10 @@ package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
@@ -12,11 +14,20 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Sleeper;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class EgovSampleControllerTestSelenium {
+
+	private static final Duration WAIT_DURATION = Duration.ofSeconds(1);
+
+	@LocalServerPort
+	private int port;
 
 	WebDriver driver;
 
@@ -25,13 +36,21 @@ class EgovSampleControllerTestSelenium {
 		driver = new ChromeDriver();
 	}
 
+	@AfterEach
+	void tearDown() {
+		if (driver != null) {
+			sleep();
+			driver.quit();
+		}
+	}
+
 	@Test
 	void test() {
 		if (log.isDebugEnabled()) {
 			log.debug("test");
 		}
 
-		driver.get("http://localhost:8080/");
+		driver.get("http://localhost:" + port + "/");
 
 		JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
 
@@ -53,7 +72,7 @@ class EgovSampleControllerTestSelenium {
 
 		sleep();
 		WebElement regUser = driver.findElement(By.id("regUser"));
-		regUser.sendKeys("test 이백행 등록자 " + now);
+		regUser.sendKeys("test 이백행");
 
 		sleep();
 		javascriptExecutor.executeScript("sampleAdd();");
@@ -70,9 +89,10 @@ class EgovSampleControllerTestSelenium {
 
 	private void sleep() {
 		try {
-			Thread.sleep(1000);
+			Sleeper.SYSTEM_SLEEPER.sleep(WAIT_DURATION);
 		} catch (InterruptedException e) {
-			fail("InterruptedException: Thread.sleep");
+			Thread.currentThread().interrupt();
+			fail("InterruptedException: Selenium Sleeper", e);
 		}
 	}
 
