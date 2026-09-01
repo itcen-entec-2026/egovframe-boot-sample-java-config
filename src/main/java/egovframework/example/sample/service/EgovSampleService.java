@@ -66,14 +66,14 @@ public interface EgovSampleService {
 
 	/**
 	 * 글 목록을 조회한다.
-	 * @param searchVO - 조회할 정보가 담긴 VO
+	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 목록
 	 */
 	List<?> selectSampleList(SampleVO vo);
 
 	/**
 	 * 글 총 개수를 조회한다.
-	 * @param searchVO - 조회할 정보가 담긴 VO
+	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 총 개수
 	 * @exception
 	 */

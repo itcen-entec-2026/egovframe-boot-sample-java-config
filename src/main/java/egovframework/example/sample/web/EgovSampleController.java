@@ -141,7 +141,7 @@ public class EgovSampleController {
 
 	/**
 	 * 글 수정화면을 조회한다.
-	 * @param id - 수정할 글 id
+	 * @param sampleVO - 수정할 글 정보가 담긴 VO
 	 * @param model
 	 * @return "egovSampleRegister"
 	 * @exception Exception
