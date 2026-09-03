@@ -6,13 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import egovframework.example.sample.service.SampleVO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -23,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @SpringBootTest
-@RequiredArgsConstructor
 @Slf4j
 class SampleMapperTestSelectSampleListTest {
 
@@ -34,10 +34,14 @@ class SampleMapperTestSelectSampleListTest {
 	private EgovIdGnrService egovIdGnrService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
-		sampleVO.setId(egovIdGnrService.getNextStringId());
+		try {
+			sampleVO.setId(egovIdGnrService.getNextStringId());
+		} catch (FdlException e) {
+			throw new BaseRuntimeException(e);
+		}
 
 		final String now = LocalDateTime.now().toString();
 
