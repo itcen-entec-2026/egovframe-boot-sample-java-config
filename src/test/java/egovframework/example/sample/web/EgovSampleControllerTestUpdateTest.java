@@ -24,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ class EgovSampleControllerTestUpdateTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given - 등록
 		final SampleVO insertVO = new SampleVO();
 		final String now = LocalDateTime.now().toString();

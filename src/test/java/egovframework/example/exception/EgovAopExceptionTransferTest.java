@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 
 import org.aspectj.lang.JoinPoint;
 import org.egovframe.rte.fdl.cmmn.aspect.ExceptionTransfer;
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ class EgovAopExceptionTransferTest {
 
 	@Test
 	@DisplayName("doAfterThrowingExceptionTransferService - ExceptionTransfer.transfer 위임 확인")
-	void testDoAfterThrowingDelegatesToExceptionTransfer() throws Exception {
+	void testDoAfterThrowingDelegatesToExceptionTransfer() throws BaseRuntimeException, Exception {
 		JoinPoint joinPoint = mock(JoinPoint.class);
 		Exception ex = new RuntimeException("서비스 예외");
 
@@ -42,7 +43,7 @@ class EgovAopExceptionTransferTest {
 
 	@Test
 	@DisplayName("setExceptionTransfer - 의존성 주입 후 transfer 호출 가능")
-	void testSetExceptionTransfer() throws Exception {
+	void testSetExceptionTransfer() throws BaseRuntimeException, Exception {
 		ExceptionTransfer another = mock(ExceptionTransfer.class);
 		exceptionTransfer.setExceptionTransfer(another);
 

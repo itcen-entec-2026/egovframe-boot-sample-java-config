@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -72,7 +73,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 수정 - 정상적으로 updateSample을 호출한다")
-	void updateSample_정상() throws Exception {
+	void updateSample_정상() {
 		// given
 		doNothing().when(sampleMapper).updateSample(sampleVO);
 
@@ -85,7 +86,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 삭제 - 정상적으로 deleteSample을 호출한다")
-	void deleteSample_정상() throws Exception {
+	void deleteSample_정상() {
 		// given
 		doNothing().when(sampleMapper).deleteSample(sampleVO);
 
@@ -98,7 +99,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 단건 조회 - 존재하는 글을 정상적으로 반환한다")
-	void selectSample_정상() throws Exception {
+	void selectSample_정상() throws BaseRuntimeException, Exception {
 		// given
 		SampleVO expected = new SampleVO();
 		expected.setId("SAMPLE-001");
@@ -116,7 +117,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 단건 조회 - 데이터가 없으면 예외가 발생한다")
-	void selectSample_데이터없음_예외() throws Exception {
+	void selectSample_데이터없음_예외() {
 		// given
 		when(sampleMapper.selectSample(sampleVO)).thenReturn(null);
 
@@ -127,7 +128,7 @@ class EgovSampleServiceImplTest {
 	@Test
 	@DisplayName("글 목록 조회 - 목록을 정상적으로 반환한다")
 	@SuppressWarnings("unchecked")
-	void selectSampleList_정상() throws Exception {
+	void selectSampleList_정상() {
 		// given
 		SampleVO item1 = new SampleVO();
 		item1.setId("SAMPLE-001");
