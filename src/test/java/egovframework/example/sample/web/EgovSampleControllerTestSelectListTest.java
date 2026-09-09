@@ -15,8 +15,10 @@
  */
 package egovframework.example.sample.web;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -68,6 +70,18 @@ class EgovSampleControllerTestSelectListTest {
 				.andExpect(view().name("sample/egovSampleList"))
 				.andExpect(model().attributeExists("resultList"))
 				.andExpect(model().attributeExists("paginationInfo"));
+	}
+
+	@Test
+	void test_목록조회_현재페이지_히든필드_유지() throws Exception {
+		mockMvc.perform(
+				get("/egovSampleList.do")
+						.param("pageIndex", "2")
+		)
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andExpect(view().name("sample/egovSampleList"))
+				.andExpect(content().string(containsString("name=\"pageIndex\" value=\"2\"")));
 	}
 
 	@Test
