@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,7 +47,7 @@ class EgovSampleControllerTestSelectListTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void test_목록조회_기본() throws Exception {
+	void test_목록조회_기본() throws BaseRuntimeException, Exception {
 		mockMvc.perform(get("/egovSampleList.do"))
 				.andDo(print())
 				.andExpect(status().isOk())
@@ -56,7 +57,7 @@ class EgovSampleControllerTestSelectListTest {
 	}
 
 	@Test
-	void test_목록조회_검색조건_이름() throws Exception {
+	void test_목록조회_검색조건_이름() throws BaseRuntimeException, Exception {
 		mockMvc.perform(
 				get("/egovSampleList.do")
 						.param("searchCondition", "1")
@@ -71,7 +72,7 @@ class EgovSampleControllerTestSelectListTest {
 	}
 
 	@Test
-	void test_인덱스_리다이렉트() throws Exception {
+	void test_인덱스_리다이렉트() throws BaseRuntimeException, Exception {
 		mockMvc.perform(get("/"))
 				.andDo(print())
 				.andExpect(status().isOk())
