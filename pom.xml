@@ -5,6 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>egovframework</groupId>
 	<artifactId>egovframe-boot-web</artifactId>
+	<version>5.0.0</version>
 	<packaging>jar</packaging>
 	<name>egovframe-boot-web</name>
 	<url>http://www.egovframe.go.kr</url>
@@ -20,7 +21,7 @@
 	<parent>
 		<groupId>org.egovframe.boot</groupId>
 		<artifactId>egovframe-boot-starter-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.0.1</version>
 	</parent>
 
 	<repositories>

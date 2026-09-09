@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.property.impl.EgovPropertyServiceImpl;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.junit.jupiter.api.DisplayName;
@@ -64,7 +65,7 @@ class EgovSampleControllerTestSelectListRowNumberTest {
 
 	@Test
 	@DisplayName("행 번호는 페이지 링크 묶음 크기가 아니라 페이지당 건수만큼 페이지마다 건너뛴다")
-	void test_행번호_페이지당건수() throws Exception {
+	void test_행번호_페이지당건수() throws BaseRuntimeException, Exception {
 		// given
 		final MvcResult mvcResult = mockMvc
 				.perform(get("/egovSampleList.do").param("pageIndex", String.valueOf(PAGE_INDEX)))

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 
-import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,7 +34,7 @@ class EgovSampleServiceImplTestInsertSampleTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws BaseRuntimeException, Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 
