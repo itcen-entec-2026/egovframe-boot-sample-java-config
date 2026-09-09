@@ -74,7 +74,7 @@ class EgovSampleControllerTestSelectListTest {
 	}
 
 	@Test
-	void test_목록조회_현재페이지_히든필드_유지() throws Exception {
+	void test_목록조회_현재페이지_히든필드_유지() throws BaseRuntimeException, Exception {
 		mockMvc.perform(
 				get("/egovSampleList.do")
 						.param("pageIndex", "2")
@@ -86,7 +86,7 @@ class EgovSampleControllerTestSelectListTest {
 	}
 
 	@Test
-	void test_인덱스_리다이렉트() throws Exception {
+	void test_인덱스_리다이렉트() throws BaseRuntimeException, Exception {
 		mockMvc.perform(get("/"))
 				.andDo(print())
 				.andExpect(status().isOk())
