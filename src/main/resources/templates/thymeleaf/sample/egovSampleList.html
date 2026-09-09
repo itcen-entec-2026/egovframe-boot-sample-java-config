@@ -14,7 +14,7 @@
 		function sampleSearch() {
             if (notNullCheck($('#searchKeyword').val())) {
 				$('#pageIndex').val(1);
-				$('#listForm').attr('method', 'get').attr('action', contextPath + '/egovSampleList.do').submit();
+				$('#listForm').attr('method', 'get').attr('action', [[@{/egovSampleList.do}]]).submit();
             } else {
             	alert(/*[[#{search.error}]]*/'검색어를 입력해주세요.');
             }
@@ -22,17 +22,17 @@
 
 		function samplePagination(pageIndex) {
         	$('#pageIndex').val(pageIndex);
-        	$('#listForm').attr('method', 'get').attr('action', contextPath + '/egovSampleList.do').submit();
+        	$('#listForm').attr('method', 'get').attr('action', [[@{/egovSampleList.do}]]).submit();
         }
 
         function sampleCreate() {
         	$('#id').val(null);
-        	$('#listForm').attr('method', 'post').attr('action', contextPath + '/addSampleView.do').submit();
+        	$('#listForm').attr('method', 'post').attr('action', [[@{/addSampleView.do}]]).submit();
         }
 
         function sampleDetail(id) {
             $('#id').val(id);
-            $('#listForm').attr('method', 'post').attr('action', contextPath + '/updateSampleView.do').submit();
+            $('#listForm').attr('method', 'post').attr('action', [[@{/updateSampleView.do}]]).submit();
         }
     </script>
 </head>
