@@ -96,7 +96,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="result, iterStat : ${resultList}">
-						<td class="text-center" th:text="${paginationInfo.totalRecordCount + 1 - ((sampleVO.pageIndex - 1) * sampleVO.pageSize + iterStat.count)}"></td>
+						<td class="text-center" th:text="${paginationInfo.totalRecordCount + 1 - ((sampleVO.pageIndex - 1) * sampleVO.recordCountPerPage + iterStat.count)}"></td>
 						<td class="text-center">
 							<a href="#" th:onclick="sampleDetail([[${result.id}]])" th:text="${result.id}"></a>
 						</td>
