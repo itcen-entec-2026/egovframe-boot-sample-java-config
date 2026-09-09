@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.psl.dataaccess.util.EgovMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleVO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,7 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @AutoConfigureMockMvc
 
-@RequiredArgsConstructor
 @Slf4j
 class EgovSampleControllerTestAddTest {
 
@@ -44,24 +43,31 @@ class EgovSampleControllerTestAddTest {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
+		final SampleVO insertVO = new SampleVO();
+		final String now = LocalDateTime.now().toString();
+		insertVO.setName("test 삭제대상 카테고리명 " + now);
+		insertVO.setDescription("test 삭제대상 설명 " + now);
+		insertVO.setUseYn("Y");
+		insertVO.setRegUser("eGov");
+		egovSampleService.insertSample(insertVO);
+
 		final SampleVO sampleVO = new SampleVO();
 
-		final String now = LocalDateTime.now().toString();
 //		final String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSSSSSS"));
 
 		// 카테고리명
-		sampleVO.setName("test 이백행 카테고리명 " + now);
+		sampleVO.setName(insertVO.getName());
 
 		// 설명
-		sampleVO.setDescription("test 이백행 설명 " + now);
+		sampleVO.setDescription(insertVO.getDescription());
 
 		// 사용여부
-		sampleVO.setUseYn("Y");
+		sampleVO.setUseYn(insertVO.getUseYn());
 
 		// 등록자
-		sampleVO.setRegUser("eGov");
+		sampleVO.setRegUser(insertVO.getRegUser());
 
 		// when
 		mockMvc.perform(
@@ -82,7 +88,7 @@ class EgovSampleControllerTestAddTest {
 		sampleVO.setRecordCountPerPage(10);
 		sampleVO.setFirstIndex(0);
 		sampleVO.setSearchCondition("1");
-		sampleVO.setSearchKeyword(sampleVO.getName());
+		sampleVO.setSearchKeyword(insertVO.getName());
 		final List<?> resultList = egovSampleService.selectSampleList(sampleVO);
 		EgovMap result = (EgovMap) resultList.get(0);
 		final SampleVO resultSampleVO = new SampleVO();
