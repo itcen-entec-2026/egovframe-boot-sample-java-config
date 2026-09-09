@@ -97,7 +97,7 @@
                         <label for="name" th:text="#{title.sample.name}"> <span class="required">*</span></label>
                     </div>
                     <div class="form-conts">
-                        <input type="text" id="name" name="name" class="krds-input" maxlength="60" th:value="${sampleVO.name}" th:placeholder="#{confirm.required.name}">
+                        <input type="text" id="name" name="name" class="krds-input" maxlength="50" th:value="${sampleVO.name}" th:placeholder="#{confirm.required.name}">
                     </div>
                 </div>
 
@@ -133,12 +133,12 @@
                         <label for="regUser" th:text="#{title.sample.regUser}"> <span class="required">*</span></label>
                     </div>
                     <div class="form-conts">
-                        <input type="text" id="regUser" name="regUser" class="krds-input" maxlength="60"
+                        <input type="text" id="regUser" name="regUser" class="krds-input" maxlength="10"
                         	th:value="${sampleVO.regUser}"
                         	th:placeholder="#{confirm.required.user}"
                         	th:readonly="readonly"
                         	th:if="${not #strings.isEmpty(sampleVO.id)}">
-                        <input type="text" id="regUser" name="regUser" class="krds-input" maxlength="60"
+                        <input type="text" id="regUser" name="regUser" class="krds-input" maxlength="10"
                         	th:placeholder="#{confirm.required.user}"
                         	th:if="${#strings.isEmpty(sampleVO.id)}">
                     </div>
