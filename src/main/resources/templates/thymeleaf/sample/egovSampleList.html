@@ -13,6 +13,7 @@
 	<script th:inline="javascript" defer>
 		function sampleSearch() {
             if (notNullCheck($('#searchKeyword').val())) {
+				$('#pageIndex').val(1);
 				$('#listForm').attr('method', 'get').attr('action', contextPath + '/egovSampleList.do').submit();
             } else {
             	alert(/*[[#{search.error}]]*/'검색어를 입력해주세요.');
@@ -45,7 +46,7 @@
 	<div id="content_pop">
 		<form id="listForm" th:object="${sampleVO}">
 			<input type="hidden" th:id="id" th:name="id" />
-			<input type="hidden" th:id="pageIndex" th:name="pageIndex" th:value="1" />
+			<input type="hidden" th:id="pageIndex" th:name="pageIndex" th:value="${sampleVO.pageIndex}" />
 
 			<!-- Search Form -->
 			<div class="form-group">
