@@ -115,7 +115,6 @@ public class EgovConfigWeb implements WebMvcConfigurer, ApplicationContextAware 
 		prop.setProperty("java.lang.Throwable", "sample/egovSampleError");
 
 		Properties statusCode = new Properties();
-		statusCode.setProperty("sample/egovSampleError", "400");
 		statusCode.setProperty("sample/egovSampleError", "500");
 
 		SimpleMappingExceptionResolver smer = new SimpleMappingExceptionResolver();
