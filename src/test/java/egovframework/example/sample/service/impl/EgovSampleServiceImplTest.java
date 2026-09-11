@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
 
-import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -99,7 +98,7 @@ class EgovSampleServiceImplTest {
 
 	@Test
 	@DisplayName("글 단건 조회 - 존재하는 글을 정상적으로 반환한다")
-	void selectSample_정상() throws BaseRuntimeException, Exception {
+	void selectSample_정상() {
 		// given
 		SampleVO expected = new SampleVO();
 		expected.setId("SAMPLE-001");

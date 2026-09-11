@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -49,7 +50,7 @@ class EgovSampleControllerTestRegisterViewTest {
 	private MockMvc mockMvc;
 
 	@Test
-	void testAddSampleView() throws Exception {
+	void testAddSampleView() throws BaseRuntimeException, Exception {
 		// given, when
 		final String html = mockMvc.perform(
 
@@ -72,7 +73,7 @@ class EgovSampleControllerTestRegisterViewTest {
 	}
 
 	@Test
-	void testUpdateSampleView() throws Exception {
+	void testUpdateSampleView() throws BaseRuntimeException, Exception {
 		// given, when
 		final String html = mockMvc.perform(
 

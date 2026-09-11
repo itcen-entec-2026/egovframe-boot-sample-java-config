@@ -101,14 +101,12 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글을 조회한다.
 	 * @param vo - 조회할 정보가 담긴 SampleVO
 	 * @return 조회한 글
-	 * @exception BaseRuntimeException
-	 * @exception Exception
 	 */
 	@Override
-	public SampleVO selectSample(SampleVO vo) throws BaseRuntimeException, Exception {
+	public SampleVO selectSample(SampleVO vo) {
 		SampleVO resultVO = sampleMapper.selectSample(vo);
 		if (resultVO == null) {
-			throw processException("info.nodata.msg");
+			throw new BaseRuntimeException(processException("info.nodata.msg"));
 		}
 		return resultVO;
 	}

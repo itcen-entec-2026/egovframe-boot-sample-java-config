@@ -17,8 +17,6 @@ package egovframework.example.sample.service;
 
 import java.util.List;
 
-import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
-
 /**
  * @Class Name : EgovSampleService.java
  * @Description : EgovSampleService Class
@@ -61,10 +59,8 @@ public interface EgovSampleService {
 	 * 글을 조회한다.
 	 * @param vo - 조회할 정보가 담긴 SampleVO
 	 * @return 조회한 글
-	 * @exception BaseRuntimeException
-	 * @exception Exception
 	 */
-	SampleVO selectSample(SampleVO vo) throws BaseRuntimeException, Exception;
+	SampleVO selectSample(SampleVO vo);
 
 	/**
 	 * 글 목록을 조회한다.
