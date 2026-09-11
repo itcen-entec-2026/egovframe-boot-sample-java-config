@@ -21,7 +21,6 @@ import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -63,7 +62,7 @@ public class EgovSampleController {
 	private final EgovPropertyService propertiesService;
 
 	@GetMapping("/")
-	public String index(@ModelAttribute SampleVO sampleVO, ModelMap model) {
+	public String index(@ModelAttribute SampleVO sampleVO, Model model) {
 		return this.selectSampleList(sampleVO, model);
 	}
 
@@ -74,11 +73,15 @@ public class EgovSampleController {
 	 * @return "egovSampleList"
 	 */
 	@GetMapping("/egovSampleList.do")
-	public String selectSampleList(@ModelAttribute SampleVO sampleVO, ModelMap model) {
+	public String selectSampleList(@ModelAttribute SampleVO sampleVO, Model model) {
 
 		/** EgovPropertyService.sample */
-		sampleVO.setPageUnit(propertiesService.getInt("pageUnit"));
-		sampleVO.setPageSize(propertiesService.getInt("pageSize"));
+		if (sampleVO.getPageUnit() == null) {
+			sampleVO.setPageUnit(propertiesService.getInt("pageUnit"));
+		}
+		if (sampleVO.getPageSize() == null) {
+			sampleVO.setPageSize(propertiesService.getInt("pageSize"));
+		}
 
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -91,7 +94,7 @@ public class EgovSampleController {
 		sampleVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 
 		/** List */
-		List<?> sampleList = sampleService.selectSampleList(sampleVO);
+		List<SampleVO> sampleList = sampleService.selectSampleList(sampleVO);
 		model.addAttribute("resultList", sampleList);
 
 		/** Count */
@@ -132,7 +135,8 @@ public class EgovSampleController {
 			return "sample/egovSampleRegister";
 		}
 
-		sampleService.insertSample(sampleVO);
+		int result = sampleService.insertSample(sampleVO);
+		log.debug("result={}", result);
 		status.setComplete();
 
 		return "redirect:/egovSampleList.do";
@@ -172,7 +176,8 @@ public class EgovSampleController {
 			return "sample/egovSampleRegister";
 		}
 
-		sampleService.updateSample(sampleVO);
+		int result = sampleService.updateSample(sampleVO);
+		log.debug("result={}", result);
 		status.setComplete();
 
 		redirectAttributes.addAttribute("searchCondition", sampleVO.getSearchCondition());
@@ -191,7 +196,8 @@ public class EgovSampleController {
 	@PostMapping("/deleteSample.do")
 	public String deleteSample(@ModelAttribute SampleVO sampleVO, RedirectAttributes redirectAttributes, SessionStatus status) {
 
-		sampleService.deleteSample(sampleVO);
+		int result = sampleService.deleteSample(sampleVO);
+		log.debug("result={}", result);
 		status.setComplete();
 
 		redirectAttributes.addAttribute("searchCondition", sampleVO.getSearchCondition());
