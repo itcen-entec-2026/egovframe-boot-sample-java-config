@@ -28,7 +28,7 @@
 	    });
     
     	function sampleList() {
-            $('#detailForm').attr('method', 'get').attr('action', contextPath + '/egovSampleList.do').submit();
+            $('#detailForm').attr('method', 'get').attr('action', [[@{/egovSampleList.do}]]).submit();
         }
 
         function sampleAdd() {
@@ -37,7 +37,7 @@
                 if (!validateSampleVO(frm)) {
 					return;
 				} else {
-					$('#detailForm').attr('method', 'post').attr('action', contextPath + '/addSample.do').submit();
+					$('#detailForm').attr('method', 'post').attr('action', [[@{/addSample.do}]]).submit();
 				}
             }
         }
@@ -48,14 +48,14 @@
                 if (!validateSampleVO(frm)) {
 					return;
 				} else {
-            		$('#detailForm').attr('method', 'post').attr('action', contextPath + '/updateSample.do').submit();
+            		$('#detailForm').attr('method', 'post').attr('action', [[@{/updateSample.do}]]).submit();
 				}
 			}
         }
 
         function sampleDelete() {
             if (confirm(/*[[#{delete.confirm}]]*/ '삭제하시겠습니까?')) {
-                $('#detailForm').attr('method', 'post').attr('action', contextPath + '/deleteSample.do').submit();
+                $('#detailForm').attr('method', 'post').attr('action', [[@{/deleteSample.do}]]).submit();
             }
         }
 
