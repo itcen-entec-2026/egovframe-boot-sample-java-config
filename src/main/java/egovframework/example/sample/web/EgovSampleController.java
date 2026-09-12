@@ -55,6 +55,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EgovSampleController {
 
+	private static final int MAX_PAGE_UNIT = 100;
+	private static final int MAX_PAGE_SIZE = 100;
+
 	/** EgovSampleService */
 	private final EgovSampleService sampleService;
 
@@ -76,12 +79,8 @@ public class EgovSampleController {
 	public String selectSampleList(@ModelAttribute SampleVO sampleVO, Model model) {
 
 		/** EgovPropertyService.sample */
-		if (sampleVO.getPageUnit() == null) {
-			sampleVO.setPageUnit(propertiesService.getInt("pageUnit"));
-		}
-		if (sampleVO.getPageSize() == null) {
-			sampleVO.setPageSize(propertiesService.getInt("pageSize"));
-		}
+		sampleVO.setPageUnit(resolvePageValue(sampleVO.getPageUnit(), "pageUnit", MAX_PAGE_UNIT));
+		sampleVO.setPageSize(resolvePageValue(sampleVO.getPageSize(), "pageSize", MAX_PAGE_SIZE));
 
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -128,7 +127,8 @@ public class EgovSampleController {
 	 * @return "forward:/egovSampleList.do"
 	 */
 	@PostMapping("/addSample.do")
-	public String addSample(@Valid @ModelAttribute SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status) {
+	public String addSample(@Valid @ModelAttribute SampleVO sampleVO, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes, SessionStatus status) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
@@ -138,6 +138,7 @@ public class EgovSampleController {
 		int result = sampleService.insertSample(sampleVO);
 		log.debug("result={}", result);
 		status.setComplete();
+		addPaginationAttributes(sampleVO, redirectAttributes);
 
 		return "redirect:/egovSampleList.do";
 	}
@@ -155,6 +156,8 @@ public class EgovSampleController {
 		detail.setSearchCondition(sampleVO.getSearchCondition());
 		detail.setSearchKeyword(sampleVO.getSearchKeyword());
 		detail.setPageIndex(sampleVO.getPageIndex());
+		detail.setPageUnit(sampleVO.getPageUnit());
+		detail.setPageSize(sampleVO.getPageSize());
 
 		model.addAttribute("sampleVO", detail);
 
@@ -183,6 +186,7 @@ public class EgovSampleController {
 		redirectAttributes.addAttribute("searchCondition", sampleVO.getSearchCondition());
 		redirectAttributes.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
 		redirectAttributes.addAttribute("pageIndex", sampleVO.getPageIndex());
+		addPaginationAttributes(sampleVO, redirectAttributes);
 
 		return "redirect:/egovSampleList.do";
 	}
@@ -203,8 +207,26 @@ public class EgovSampleController {
 		redirectAttributes.addAttribute("searchCondition", sampleVO.getSearchCondition());
 		redirectAttributes.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
 		redirectAttributes.addAttribute("pageIndex", sampleVO.getPageIndex());
+		addPaginationAttributes(sampleVO, redirectAttributes);
 
 		return "redirect:/egovSampleList.do";
+	}
+
+	private int resolvePageValue(Integer value, String property, int maximum) {
+		if (value != null && value > 0 && value <= maximum) {
+			return value;
+		}
+		// 요청값뿐 아니라 서버 기본값도 안전한 범위로 제한한다.
+		return Math.max(1, Math.min(propertiesService.getInt(property), maximum));
+	}
+
+	private void addPaginationAttributes(SampleVO sampleVO, RedirectAttributes redirectAttributes) {
+		if (sampleVO.getPageUnit() != null) {
+			redirectAttributes.addAttribute("pageUnit", sampleVO.getPageUnit());
+		}
+		if (sampleVO.getPageSize() != null) {
+			redirectAttributes.addAttribute("pageSize", sampleVO.getPageSize());
+		}
 	}
 
 }
